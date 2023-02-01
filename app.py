@@ -20,28 +20,42 @@ ICONS = {
 }
 
 
-def get_api():
+def set_api_key():
     global API_KEY, CITY
     API_KEY, CITY = get_data()
 
 
-def request_api_data():
+def get_data_from_api():
     request_url = f"{BASE}"
     parameters = {"q": CITY, "units": UNITS, "APPID": API_KEY}
-    geolocation_data = requests.get(request_url, parameters)
-    geolocation_json = geolocation_data.json()
-    main_data = ceil(geolocation_json["main"]["temp"])
-    icon_data = geolocation_json["weather"][0]["main"]
-    icon = ICONS[icon_data]
-    format = f"{main_data} | {icon} "
+    data = requests.get(request_url, parameters)
+    json_data = data.json()
+    return json_data
+
+
+def get_temp_data(json):
+    return ceil(json["main"]["temp"])
+
+
+def get_humidity(json):
+    return json["main"]["humidity"]
+
+
+def request_api_data():
+    json_data = get_data_from_api()
+    temp_data = get_temp_data(json_data)
+    icon = get_icon(json_data)
+    humidity = get_humidity(json_data)
+    format = f"{temp_data} | {icon}  | {humidity}"
     print(format)
 
 
-def get_icon(condition):
+def get_icon(json):
+    condition = json["weather"][0]["main"]
     icon = ICONS[condition]
     return icon
 
 
 if __name__ == "__main__":
-    get_api()
+    set_api_key()
     request_api_data()
