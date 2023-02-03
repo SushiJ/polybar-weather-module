@@ -27,4 +27,4 @@ format-prefix-foreground = ${colors.foreground}
 
 label = %output:0:50%
 ```
-follow [polybar](https://github.com/polybar/polybar/wiki/Module:-script) for more info in running custom scripts
+follow [polybar](https://github.com/polybar/polybar/wiki/Module:-script) for more info on running custom scripts
