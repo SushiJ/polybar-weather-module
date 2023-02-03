@@ -4,6 +4,7 @@ from datetime import datetime
 import requests
 
 from utils.io_helper import get_data
+from utils.exceptions import WeatherApiException
 
 
 API_KEY = ''
@@ -42,8 +43,12 @@ def set_api_key():
 def get_data_from_api():
     request_url = f"{BASE}"
     parameters = {"q": CITY, "units": UNITS, "APPID": API_KEY}
-    data = requests.get(request_url, parameters)
-    json_data = data.json()
+    response = requests.get(request_url, parameters)
+
+    if response.status_code != 200:
+        raise WeatherApiException(response.status_code)
+
+    json_data = response.json()
     return json_data
 
 
