@@ -1,5 +1,4 @@
 #!/bin/env python3
-from math import ceil
 from datetime import datetime
 import requests
 
@@ -53,7 +52,7 @@ def get_data_from_api():
 
 
 def get_temp_data(json):
-    return ceil(json["main"]["temp"])
+    return round(json["main"]["temp"])
 
 
 def get_humidity(json):
