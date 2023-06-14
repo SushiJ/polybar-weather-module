@@ -1,6 +1,7 @@
 #!/bin/env python3
 from datetime import datetime
 import requests
+import subprocess
 
 from utils.io_helper import get_data
 from utils.exceptions import WeatherApiException
@@ -81,10 +82,24 @@ def request_api_data():
     temp_data = get_temp_data(json_data)
     icon = get_icon(json_data)
     humidity = get_humidity(json_data)
-    format = f"{icon}  | {temp_data} | {humidity}% "
+    format = f"{icon} | {temp_data} | {humidity}% "
     print(format)
 
 
+def is_wifi_connected():
+    result = subprocess.run(['iwconfig'], capture_output=True, text=True)
+    output = result.stdout
+
+    # Check if any wireless interface is connected
+    if 'ESSID:""' not in output:
+        return True
+    else:
+        return False
+
+
 if __name__ == "__main__":
-    set_api_key()
-    request_api_data()
+    if is_wifi_connected():
+        set_api_key()
+        request_api_data()
+    else:
+        print("Wifi Down")
