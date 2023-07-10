@@ -91,10 +91,7 @@ def is_wifi_connected():
     output = result.stdout
 
     # Check if any wireless interface is connected
-    if 'ESSID:""' not in output:
-        return True
-    else:
-        return False
+    return 'ESSID:off/any' not in output
 
 
 if __name__ == "__main__":
