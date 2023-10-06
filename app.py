@@ -1,8 +1,10 @@
 #!/bin/env python3
-from datetime import datetime
+
 import requests
 import subprocess
+from datetime import datetime
 
+from utils.icons import ICONS
 from utils.io_helper import get_data
 from utils.exceptions import WeatherApiException
 
@@ -11,28 +13,6 @@ API_KEY = ''
 CITY = ''
 BASE = "https://api.openweathermap.org/data/2.5/weather"
 UNITS = "metric"
-ICONS = {
-    "SUN": {
-        "Clear": '',
-        "Clouds": '',
-        "Rain": '',
-        "Thunderstorm": '',
-        "Snow": '',
-        "Drizzle": '',
-        "Mist": '',
-        "Haze": ''
-    },
-    "MOON": {
-        "Clear": '',
-        "Clouds": '',
-        "Rain": '',
-        "Thunderstorm": '',
-        "Snow": '',
-        "Drizzle": '',
-        "Mist": '',
-        "Haze": ''
-    }
-}
 
 
 def set_api_key():
